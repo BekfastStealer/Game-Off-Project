@@ -4,6 +4,7 @@ extends Node2D
 
 @export var dimensions: Vector2i
 @export var tile_size: Vector2i
+var tile_occupants: Dictionary[Vector2i, Unit]
 
 
 func _draw() -> void:
@@ -20,5 +21,31 @@ func _draw() -> void:
 				Color.BLACK)
 
 
+func add_unit(unit: Unit, coords: Vector2i) -> void:
+	tile_occupants[coords] = unit
+	unit.coords = coords
+
+
+## Returns true if move was successful
+func move_unit(unit: Unit, from: Vector2i, to: Vector2i) -> bool:
+	if tile_occupants[from] != unit:
+		push_error("From tile doesn't match")
+		return false
+	if not tile_is_open(to):
+		return false
+	tile_occupants.erase(from)
+	tile_occupants[to] = unit
+	unit.coords = to
+	return true
+
+
 func tile_position(coords: Vector2i) -> Vector2:
 	return Vector2(tile_size * coords) + Vector2(tile_size) / 2
+
+
+func tile_is_open(coords: Vector2i) -> bool:
+	if not Rect2i(Vector2i.ZERO, dimensions).has_point(coords):
+		return false
+	if tile_occupants.has(coords):
+		return false
+	return true

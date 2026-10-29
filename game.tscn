@@ -11,12 +11,16 @@ script = ExtResource("1_80nbo")
 dimensions = Vector2i(20, 20)
 tile_size = Vector2i(32, 32)
 
-[node name="PlayerCharacter" parent="Grid" unique_id=1396421964 node_paths=PackedStringArray("grid") instance=ExtResource("2_feb5d")]
+[node name="Character1" parent="Grid" unique_id=1396421964 node_paths=PackedStringArray("grid") instance=ExtResource("2_feb5d")]
 grid = NodePath("..")
 
-[node name="PlayerController" type="Node" parent="." unique_id=83570442 node_paths=PackedStringArray("character", "camera")]
+[node name="Character2" parent="Grid" unique_id=1954309603 node_paths=PackedStringArray("grid") instance=ExtResource("2_feb5d")]
+grid = NodePath("..")
+start_coords = Vector2i(1, 2)
+
+[node name="PlayerController" type="Node" parent="." unique_id=83570442 node_paths=PackedStringArray("characters", "camera")]
 script = ExtResource("4_fc0e3")
-character = NodePath("../Grid/PlayerCharacter")
+characters = [NodePath("../Grid/Character1"), NodePath("../Grid/Character2")]
 camera = NodePath("../Camera")
 cam_ease_factor = 0.25
 

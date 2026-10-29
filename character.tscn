@@ -5,7 +5,7 @@
 
 [sub_resource type="Animation" id="Animation_wfnr8"]
 resource_name = "Hop"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -21,7 +21,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_pjt0s"]
 resource_name = "Punch"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -69,10 +69,11 @@ _data = {
 &"RESET": SubResource("Animation_wa5vi")
 }
 
-[node name="PlayerCharacter" type="Sprite2D" unique_id=1396421964 node_paths=PackedStringArray("animations")]
+[node name="Character" type="Sprite2D" unique_id=1396421964 node_paths=PackedStringArray("animations")]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_pjt0s")
 script = ExtResource("2_wa5vi")
+start_coords = null
 animations = NodePath("AnimationPlayer")
 jump_height = 16.0
 punch_angle = 45.0

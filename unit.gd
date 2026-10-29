@@ -8,6 +8,7 @@ enum Action {
 }
 
 @export var grid: Grid
+@export var start_coords: Vector2i
 @export var animations: AnimationPlayer
 
 # TODO: these are temporary for placeholder animations
@@ -20,8 +21,9 @@ var coords: Vector2i
 
 
 func _ready() -> void:
+	grid.add_unit(self, start_coords)
+	position = grid.tile_position(coords)
 	# TODO: other starting positions?
-	snap_to_tile(Vector2i.ZERO)
 
 
 # TODO: this whole thing is temporary
@@ -32,18 +34,18 @@ func _process(_delta: float) -> void:
 
 ## Returns true if the move was valid, false otherwise
 func snap_to_tile(new_coords: Vector2i) -> bool:
-	if not Rect2i(Vector2i.ZERO, grid.dimensions).has_point(new_coords):
+	var success: bool = _move_internal(new_coords)
+	if not success:
 		return false
-	coords = new_coords
 	position = grid.tile_position(coords)
 	return true
 
 
 func step(direction: Directions.Direction) -> bool:
-	var could_step: bool = snap_to_tile(coords + Directions.to_vector(direction))
-	if not could_step: #TODO: this is temporary
+	var success: bool = snap_to_tile(coords + Directions.to_vector(direction))
+	if not success: #TODO: this is temporary
 		print("Can't step there")
-	return could_step
+	return success
 
 
 func do_action(action: Action) -> void:
@@ -56,3 +58,7 @@ func do_action(action: Action) -> void:
 			animations.play("Hop")
 		_:
 			push_error("Unimplemented Action")
+
+
+func _move_internal(new_coords: Vector2i) -> bool:
+	return grid.move_unit(self, coords, new_coords)

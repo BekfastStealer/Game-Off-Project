@@ -2,10 +2,17 @@ class_name PlayerController
 extends Node
 
 
-@export var character: Unit
+@export var characters: Array[Unit]
 @export var camera: Camera2D
 ## Range 0-1. Lower values follow more closely.
 @export var cam_ease_factor: float
+
+var character_i: int = 0
+var character: Unit
+
+
+func _ready() -> void:
+	character = characters[character_i]
 
 
 func _process(delta: float) -> void:
@@ -28,3 +35,12 @@ func _input(event: InputEvent) -> void:
 		character.do_action(Unit.Action.PUNCH)
 	elif event.is_action_pressed("hop"):
 		character.do_action(Unit.Action.HOP)
+	elif event.is_action_pressed("switch"):
+		cycle_character()
+
+
+func cycle_character() -> void:
+	character_i += 1
+	if character_i >= characters.size():
+		character_i = 0
+	character = characters[character_i]
