@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cisl75colcoco"]
+
+[ext_resource type="Script" uid="uid://b0pprcoo1jkdk" path="res://scripts/board.gd" id="1_lbhrr"]
+[ext_resource type="Script" uid="uid://dumo5id288g67" path="res://scripts/player_controller.gd" id="3_p57ef"]
+[ext_resource type="Script" uid="uid://faq4rv2m7kcu" path="res://scripts/camera.gd" id="4_u5sy4"]
+[ext_resource type="Script" uid="uid://bi7qan5jtnquf" path="res://scripts/tile_highlighter.gd" id="5_p57ef"]
+
+[node name="Game" type="Node2D" unique_id=582445022]
+
+[node name="Board" type="Node2D" parent="." unique_id=1786388021]
+script = ExtResource("1_lbhrr")
+dimensions = Vector2i(10, 10)
+tile_size = Vector2(128, 128)
+
+[node name="PlayerController" type="Node2D" parent="." unique_id=111781914 node_paths=PackedStringArray("board", "camera", "highlighter")]
+script = ExtResource("3_p57ef")
+board = NodePath("../Board")
+camera = NodePath("Camera")
+highlighter = NodePath("TileHighlighter")
+
+[node name="TileHighlighter" type="Node2D" parent="PlayerController" unique_id=2112004286 node_paths=PackedStringArray("_board")]
+script = ExtResource("5_p57ef")
+_board = NodePath("../../Board")
+metadata/_custom_type_script = "uid://bi7qan5jtnquf"
+
+[node name="Camera" type="Camera2D" parent="PlayerController" unique_id=1481657394 node_paths=PackedStringArray("board")]
+script = ExtResource("4_u5sy4")
+cam_speed = Vector2(1000, 1000)
+board = NodePath("../../Board")
