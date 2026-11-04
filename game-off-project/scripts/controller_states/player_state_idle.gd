@@ -22,3 +22,6 @@ func _on_tile_click(tile: Board.Tile) -> void:
 	var entity: Entity = _board.entity_at(tile)
 	if entity != null:
 		_player.set_state(PlayerStateExamining.new(_player, entity))
+
+func _on_back_press() -> void:
+	pass

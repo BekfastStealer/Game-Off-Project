@@ -15,3 +15,7 @@ func _init(player: PlayerController) -> void:
 @abstract func _exit() -> void
 @abstract func _on_tile_hover(tile: Board.Tile) -> void
 @abstract func _on_tile_click(tile: Board.Tile) -> void
+@abstract func _on_back_press() -> void
+
+func _on_action_select(_action: Action) -> void:
+	pass

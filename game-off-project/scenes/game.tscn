@@ -2,10 +2,52 @@
 
 [ext_resource type="Script" uid="uid://b0pprcoo1jkdk" path="res://scripts/board.gd" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://543c65wpreu2" path="res://scenes/entity.tscn" id="2_iywne"]
+[ext_resource type="Script" uid="uid://botfngjpmyxcx" path="res://scripts/components/health_component.gd" id="3_dinhu"]
 [ext_resource type="Script" uid="uid://c4ukxhcqfr83y" path="res://scripts/components/agency_component.gd" id="3_iywne"]
 [ext_resource type="Script" uid="uid://dumo5id288g67" path="res://scripts/player_controller.gd" id="3_p57ef"]
+[ext_resource type="Script" uid="uid://bxqejjba5qnl0" path="res://scripts/actions/action.gd" id="4_gee14"]
 [ext_resource type="Script" uid="uid://faq4rv2m7kcu" path="res://scripts/camera.gd" id="4_u5sy4"]
+[ext_resource type="Script" uid="uid://ijx7rfy70116" path="res://scripts/actions/walk.gd" id="5_0tnpc"]
 [ext_resource type="Script" uid="uid://bi7qan5jtnquf" path="res://scripts/tile_highlighter.gd" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://wyqaaa6i4x02" path="res://scripts/actions/punch.gd" id="5_vtaks"]
+[ext_resource type="Script" uid="uid://biuxehlpq1hrc" path="res://scripts/actions/ram.gd" id="6_0tnpc"]
+[ext_resource type="Script" uid="uid://bekx4wnul0u8x" path="res://scripts/components/team_component.gd" id="8_kvuet"]
+[ext_resource type="Script" uid="uid://fh3mvolr4hq8" path="res://scripts/actions/shout.gd" id="10_trtic"]
+[ext_resource type="Script" uid="uid://obapii4n3uil" path="res://scripts/unit_info_display.gd" id="11_kvpfn"]
+
+[sub_resource type="Resource" id="Resource_p57ef"]
+script = ExtResource("5_0tnpc")
+max_range = 3
+metadata/_custom_type_script = "uid://ijx7rfy70116"
+
+[sub_resource type="Resource" id="Resource_0tnpc"]
+script = ExtResource("5_vtaks")
+damage = 3
+metadata/_custom_type_script = "uid://wyqaaa6i4x02"
+
+[sub_resource type="Resource" id="Resource_ngfbr"]
+script = ExtResource("5_0tnpc")
+max_range = 2
+metadata/_custom_type_script = "uid://ijx7rfy70116"
+
+[sub_resource type="Resource" id="Resource_dinhu"]
+script = ExtResource("5_vtaks")
+damage = 3
+metadata/_custom_type_script = "uid://wyqaaa6i4x02"
+
+[sub_resource type="Resource" id="Resource_afbn3"]
+script = ExtResource("6_0tnpc")
+min_range = 3
+max_range = 8
+damage = 2
+metadata/_custom_type_script = "uid://biuxehlpq1hrc"
+
+[sub_resource type="Resource" id="Resource_ir15t"]
+script = ExtResource("10_trtic")
+max_range = 4
+damage = 2
+healing = 2
+metadata/_custom_type_script = "uid://fh3mvolr4hq8"
 
 [node name="Game" type="Node2D" unique_id=582445022]
 
@@ -14,19 +56,62 @@ script = ExtResource("1_lbhrr")
 dimensions = Vector2i(10, 10)
 tile_size = Vector2(128, 128)
 
-[node name="Unit1" parent="Board" unique_id=1147370294 instance=ExtResource("2_iywne")]
+[node name="BasicUnit" parent="Board" unique_id=1147370294 instance=ExtResource("2_iywne")]
 start_coords = Vector2i(2, 1)
 
-[node name="AgencyComponent" type="Node2D" parent="Board/Unit1" unique_id=898256743]
+[node name="HealthComponent" type="Node2D" parent="Board/BasicUnit" unique_id=527579625]
+script = ExtResource("3_dinhu")
+max_health = 4
+metadata/_custom_type_script = "uid://botfngjpmyxcx"
+
+[node name="AgencyComponent" type="Node2D" parent="Board/BasicUnit" unique_id=898256743]
 script = ExtResource("3_iywne")
-move_range = 2
+actions = Array[ExtResource("4_gee14")]([SubResource("Resource_p57ef"), SubResource("Resource_0tnpc")])
 metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
 
-[node name="PlayerController" type="Node2D" parent="." unique_id=111781914 node_paths=PackedStringArray("board", "camera", "highlighter")]
+[node name="TeamComponent" type="Node2D" parent="Board/BasicUnit" unique_id=192664467]
+script = ExtResource("8_kvuet")
+metadata/_custom_type_script = "uid://bekx4wnul0u8x"
+
+[node name="CartUnit" parent="Board" unique_id=1176094742 instance=ExtResource("2_iywne")]
+
+[node name="AgencyComponent" type="Node2D" parent="Board/CartUnit" unique_id=1770297163]
+script = ExtResource("3_iywne")
+actions = Array[ExtResource("4_gee14")]([SubResource("Resource_ngfbr"), SubResource("Resource_dinhu"), SubResource("Resource_afbn3")])
+metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
+
+[node name="HealthComponent" type="Node2D" parent="Board/CartUnit" unique_id=146480052]
+script = ExtResource("3_dinhu")
+max_health = 3
+metadata/_custom_type_script = "uid://botfngjpmyxcx"
+
+[node name="TeamComponent" type="Node2D" parent="Board/CartUnit" unique_id=555853074]
+script = ExtResource("8_kvuet")
+metadata/_custom_type_script = "uid://bekx4wnul0u8x"
+
+[node name="ManagerUnit" parent="Board" unique_id=940675558 instance=ExtResource("2_iywne")]
+start_coords = Vector2i(0, 3)
+
+[node name="AgencyComponent" type="Node2D" parent="Board/ManagerUnit" unique_id=1534140867]
+script = ExtResource("3_iywne")
+actions = Array[ExtResource("4_gee14")]([SubResource("Resource_ngfbr"), SubResource("Resource_ir15t")])
+metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
+
+[node name="HealthComponent" type="Node2D" parent="Board/ManagerUnit" unique_id=1002455153]
+script = ExtResource("3_dinhu")
+max_health = 2
+metadata/_custom_type_script = "uid://botfngjpmyxcx"
+
+[node name="TeamComponent" type="Node2D" parent="Board/ManagerUnit" unique_id=1870743199]
+script = ExtResource("8_kvuet")
+metadata/_custom_type_script = "uid://bekx4wnul0u8x"
+
+[node name="PlayerController" type="Node2D" parent="." unique_id=111781914 node_paths=PackedStringArray("board", "camera", "highlighter", "entity_info_display")]
 script = ExtResource("3_p57ef")
 board = NodePath("../Board")
 camera = NodePath("Camera")
 highlighter = NodePath("TileHighlighter")
+entity_info_display = NodePath("../EntityInfoDisplay")
 
 [node name="TileHighlighter" type="Node2D" parent="PlayerController" unique_id=2112004286 node_paths=PackedStringArray("_board")]
 script = ExtResource("5_p57ef")
@@ -37,3 +122,19 @@ metadata/_custom_type_script = "uid://bi7qan5jtnquf"
 script = ExtResource("4_u5sy4")
 cam_speed = Vector2(1000, 1000)
 board = NodePath("../../Board")
+
+[node name="EntityInfoDisplay" type="CanvasLayer" parent="." unique_id=239020887 node_paths=PackedStringArray("player", "name_label")]
+script = ExtResource("11_kvpfn")
+player = NodePath("../PlayerController")
+name_label = NodePath("VBoxContainer/NameLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EntityInfoDisplay" unique_id=709721027]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 93.0
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="EntityInfoDisplay/VBoxContainer" unique_id=40556869]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Name"

@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 		hovered_tile.emit(mouse_tile)
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var m_event: = event as InputEventMouseButton
 		if m_event.button_index == MOUSE_BUTTON_LEFT and m_event.pressed:
