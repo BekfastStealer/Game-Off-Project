@@ -64,21 +64,16 @@ script = ExtResource("3_dinhu")
 max_health = 4
 metadata/_custom_type_script = "uid://botfngjpmyxcx"
 
+[node name="TeamComponent" type="Node2D" parent="Board/BasicUnit" unique_id=192664467]
+script = ExtResource("8_kvuet")
+metadata/_custom_type_script = "uid://bekx4wnul0u8x"
+
 [node name="AgencyComponent" type="Node2D" parent="Board/BasicUnit" unique_id=898256743]
 script = ExtResource("3_iywne")
 actions = Array[ExtResource("4_gee14")]([SubResource("Resource_p57ef"), SubResource("Resource_0tnpc")])
 metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
 
-[node name="TeamComponent" type="Node2D" parent="Board/BasicUnit" unique_id=192664467]
-script = ExtResource("8_kvuet")
-metadata/_custom_type_script = "uid://bekx4wnul0u8x"
-
 [node name="CartUnit" parent="Board" unique_id=1176094742 instance=ExtResource("2_iywne")]
-
-[node name="AgencyComponent" type="Node2D" parent="Board/CartUnit" unique_id=1770297163]
-script = ExtResource("3_iywne")
-actions = Array[ExtResource("4_gee14")]([SubResource("Resource_ngfbr"), SubResource("Resource_dinhu"), SubResource("Resource_afbn3")])
-metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
 
 [node name="HealthComponent" type="Node2D" parent="Board/CartUnit" unique_id=146480052]
 script = ExtResource("3_dinhu")
@@ -89,13 +84,13 @@ metadata/_custom_type_script = "uid://botfngjpmyxcx"
 script = ExtResource("8_kvuet")
 metadata/_custom_type_script = "uid://bekx4wnul0u8x"
 
+[node name="AgencyComponent" type="Node2D" parent="Board/CartUnit" unique_id=1770297163]
+script = ExtResource("3_iywne")
+actions = Array[ExtResource("4_gee14")]([SubResource("Resource_ngfbr"), SubResource("Resource_dinhu"), SubResource("Resource_afbn3")])
+metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
+
 [node name="ManagerUnit" parent="Board" unique_id=940675558 instance=ExtResource("2_iywne")]
 start_coords = Vector2i(0, 3)
-
-[node name="AgencyComponent" type="Node2D" parent="Board/ManagerUnit" unique_id=1534140867]
-script = ExtResource("3_iywne")
-actions = Array[ExtResource("4_gee14")]([SubResource("Resource_ngfbr"), SubResource("Resource_ir15t")])
-metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
 
 [node name="HealthComponent" type="Node2D" parent="Board/ManagerUnit" unique_id=1002455153]
 script = ExtResource("3_dinhu")
@@ -105,6 +100,11 @@ metadata/_custom_type_script = "uid://botfngjpmyxcx"
 [node name="TeamComponent" type="Node2D" parent="Board/ManagerUnit" unique_id=1870743199]
 script = ExtResource("8_kvuet")
 metadata/_custom_type_script = "uid://bekx4wnul0u8x"
+
+[node name="AgencyComponent" type="Node2D" parent="Board/ManagerUnit" unique_id=1534140867]
+script = ExtResource("3_iywne")
+actions = Array[ExtResource("4_gee14")]([SubResource("Resource_ngfbr"), SubResource("Resource_ir15t")])
+metadata/_custom_type_script = "uid://c4ukxhcqfr83y"
 
 [node name="PlayerController" type="Node2D" parent="." unique_id=111781914 node_paths=PackedStringArray("board", "camera", "highlighter", "entity_info_display")]
 script = ExtResource("3_p57ef")
